@@ -1,0 +1,157 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Rule: UI/UX-First Exploration (Optional)
+
+## Goal
+
+To guide an AI assistant in conducting an optional, lightweight UI/UX exploration phase that validates and clarifies the user experience before development begins. This prevents mid-development refactoring by ensuring the UI/UX approach aligns with user expectations and project scope.
+
+## When to Use This Rule
+
+This rule should be applied **after** task generation (`create/generate-tasks.mdc`) and **before** task processing (`create/process-task-list.mdc`). The AI must prompt the user to decide whether to proceed with UI/UX exploration.
+
+## Process
+
+### Step 1: User Decision Point
+After generating tasks, the AI must ask:
+> "Would you like to explore and validate the UI/UX approach before beginning development? This optional step helps clarify scope and prevent mid-development changes. Options:
+> A) Skip UI/UX exploration and proceed directly to development
+> B) Conduct UI/UX exploration first"
+
+If the user chooses A, skip this rule and proceed to `create/process-task-list.mdc`.
+
+### Step 2: UI/UX Exploration Approach Selection
+If the user chooses B, ask:
+> "What approach would you prefer for UI/UX exploration?
+> A) **Broad approach**: High-level wireframes and user flows for all major screens
+> B) **Granular approach**: Detailed mockups and interactions for specific critical areas
+> C) **Hybrid approach**: Broad coverage first, then granular focus on key areas you identify"
+
+### Step 3: UI/UX Exploration Execution
+
+Based on the selected approach, guide the user through:
+
+#### Phase 1: Requirements & User Flow Analysis
+1. **Review the PRD** to identify key user journeys and screen requirements
+2. **Create user personas** if not already defined
+3. **Map user flows** for primary use cases
+4. **Identify critical UI/UX decision points** that could impact development scope
+
+#### Phase 2: Wireframing & Structure
+1. **Create low-fidelity wireframes** using the chosen approach:
+   - **Broad**: Cover all major screens with basic layout
+   - **Granular**: Focus on 2-3 most complex/critical screens with detailed interactions
+   - **Hybrid**: Start broad, then dive deep on areas user identifies as critical
+
+2. **Recommended Local Tools** (in order of preference):
+   - **Excalidraw** (Free, browser-based, no signup required)
+   - **Penpot** (Open-source, local installation option)
+   - **Figma** (Industry standard, but requires account)
+   - **Balsamiq** (Simple wireframing)
+   - **Hand sketches + photos** (Most local, upload to project)
+
+#### Phase 3: Component & Layout Planning
+1. **Identify reusable components** from wireframes
+2. **Plan responsive behavior** for key screen sizes
+3. **Consider accessibility requirements** based on user personas
+4. **Note any special interactions** or animations needed
+
+#### Phase 4: Technology Stack Validation
+1. **Validate tool choices** against UI/UX requirements:
+   - **Styling**: Tailwind CSS, styled-components, CSS modules
+   - **Component libraries**: shadcn/ui, Chakra UI, Material-UI
+   - **State management**: React state, Zustand, Redux
+   - **Animation**: Framer Motion, CSS animations
+2. **Identify potential technical constraints** from UI/UX designs
+
+## Output
+
+### Location & Format
+- **Format:** Markdown (`.md`)
+- **Location:** `/tasks/`
+- **Filename:** `ux-exploration-[feature-name].md`
+
+### Required Structure
+```markdown
+# UI/UX Exploration: [Feature Name]
+
+## Exploration Approach Used
+[Broad/Granular/Hybrid]
+
+## User Personas & Journeys
+[Brief personas and primary user flows]
+
+## Wireframes & Mockups
+[Links to wireframe files, embedded images, or descriptions]
+
+## Component Architecture
+### Reusable Components Identified
+- ComponentName: Purpose and usage
+- ComponentName: Purpose and usage
+
+### Layout Structure
+[Description of overall layout approach]
+
+## Technology Stack Recommendations
+### Styling Approach
+[Recommendation with reasoning]
+
+### Component Strategy
+[Recommendation with reasoning]
+
+### State Management
+[Recommendation with reasoning]
+
+## Critical UI/UX Decisions
+[List of key decisions made during exploration]
+
+## Scope Validation
+### In Scope (Confirmed)
+[UI/UX elements that are clearly defined and ready for development]
+
+### Questions/Clarifications Needed
+[Areas that need further clarification before development]
+
+### Potential Scope Creep Risks
+[UI/UX elements that could expand beyond original intent]
+
+## Development Readiness Assessment
+[Ready to proceed? Or need more exploration?]
+```
+
+### Step 4: Validation Checkpoint
+After completing the UI/UX exploration, the AI must ask:
+> "Based on this UI/UX exploration, are you ready to proceed with development, or should we explore additional areas first? 
+> 
+> Current assessment:
+> - [X] Clear user flows defined
+> - [X] Component architecture planned  
+> - [X] Technical approach validated
+> - [?] [Any areas needing more work]
+> 
+> Options:
+> A) Proceed to development with current scope
+> B) Explore additional UI/UX areas first
+> C) Refine existing exploration before development"
+
+## Integration with Task Processing
+
+When proceeding to `create/process-task-list.mdc`, the AI should:
+1. **Reference the UI/UX exploration document** when implementing UI-related tasks
+2. **Add UI/UX-specific tasks** to the task list if they weren't already included
+3. **Validate implementations** against the UI/UX guidance throughout development
+
+## Target Audience
+
+This process is designed for developers who want to validate their UI/UX approach before committing to implementation, preventing costly mid-development changes and ensuring user experience quality.
+
+## Notes
+
+- This is an **optional** step that adds value through scope clarification
+- Emphasizes **local tools** to avoid third-party dependencies
+- Creates **referenceable deliverables** that guide development
+- Includes **validation checkpoints** to ensure readiness
+- Supports **flexible approaches** based on project needs and user preferences

@@ -40,11 +40,11 @@ You can create a lightweight PRD directly within Cursor:
 
 With your PRD drafted (e.g., `MyFeature-PRD.md`), the next step is to generate a detailed, step-by-step implementation plan for your AI Developer.
 
-1. Ensure you have `generate-tasks.mdc` accessible.
+1. Ensure you have `create/generate-tasks.mdc` accessible.
 2. In Cursor's Agent chat, use the PRD to create tasks:
 
     ```text
-    Now take @MyFeature-PRD.md and create tasks using @generate-tasks.mdc
+    Now take @MyFeature-PRD.md and create tasks using @create/generate-tasks.mdc
     ```
     *(Note: Replace `@MyFeature-PRD.md` with the actual filename of the PRD you generated in step 1.)*
 
@@ -56,23 +56,35 @@ You'll now have a well-structured task list, often with tasks and sub-tasks, rea
 
 ![Example of a generated task list](https://pbs.twimg.com/media/Go6GNuOWsAEcSDm?format=jpg&name=medium)
 
-### 4️⃣ Instruct the AI to Work Through Tasks (and Mark Completion)
+### 4️⃣ Optional: UI/UX Exploration
 
-To ensure methodical progress and allow for verification, we'll use `process-task-list.mdc`. This command instructs the AI to focus on one task at a time and wait for your go-ahead before moving to the next.
+After generating your task list, the AI will automatically prompt you to decide whether to explore the UI/UX approach before development begins. This optional step helps prevent mid-development refactoring by validating the user experience upfront.
 
-1. Create or ensure you have the `process-task-list.mdc` file accessible.
+If you choose to proceed with UI/UX exploration, the AI will guide you through:
+- User flow analysis and wireframing
+- Component architecture planning
+- Technology stack validation
+- Scope clarification
+
+This creates a `ux-exploration-[feature-name].md` document that will guide development.
+
+### 5️⃣ Instruct the AI to Work Through Tasks (and Mark Completion)
+
+To ensure methodical progress and allow for verification, we'll use `create/process-task-list.mdc`. This command instructs the AI to focus on one task at a time and wait for your go-ahead before moving to the next.
+
+1. Create or ensure you have the `create/process-task-list.mdc` file accessible.
 2. In Cursor's Agent chat, tell the AI to start with the first task (e.g., `1.1`):
 
     ```text
-    Please start on task 1.1 and use @process-task-list.mdc
+    Please start on task 1.1 and use @create/process-task-list.mdc
     ```
-    *(Important: You only need to reference `@process-task-list.mdc` for the *first* task. The instructions within it guide the AI for subsequent tasks.)*
+    *(Important: You only need to reference `@create/process-task-list.mdc` for the *first* task. The instructions within it guide the AI for subsequent tasks.)*
 
     The AI will attempt the task and then prompt you to review.
 
     ![Example of starting on a task with process-task-list.mdc](https://pbs.twimg.com/media/Go6I41KWcAAAlHc?format=jpg&name=medium)
 
-### 5️⃣ Review, Approve, and Progress ✅
+### 6️⃣ Review, Approve, and Progress ✅
 
 As the AI completes each task, you review the changes.
 
@@ -94,8 +106,9 @@ If you'd like to see this in action, I demonstrated it on [Claire Vo's "How I AI
 ## 🗂️ Files in this Repository
 
 * **`create-prd.mdc`**: Guides the AI in generating a Product Requirement Document for your feature.
-* **`generate-tasks.mdc`**: Takes a PRD markdown file as input and helps the AI break it down into a detailed, step-by-step implementation task list.
-* **`process-task-list.mdc`**: Instructs the AI on how to process the generated task list, tackling one task at a time and waiting for your approval before proceeding. (This file also contains logic for the AI to mark tasks as complete).
+* **`create/generate-tasks.mdc`**: Takes a PRD markdown file as input and helps the AI break it down into a detailed, step-by-step implementation task list.
+* **`create/process-ux-first.mdc`**: Optional UI/UX exploration phase that validates and clarifies the user experience before development begins, preventing mid-development refactoring.
+* **`create/process-task-list.mdc`**: Instructs the AI on how to process the generated task list, tackling one task at a time and waiting for your approval before proceeding. (This file also contains logic for the AI to mark tasks as complete).
 
 ## 🌟 Benefits
 
@@ -108,7 +121,7 @@ If you'd like to see this in action, I demonstrated it on [Claire Vo's "How I AI
 ## 🛠️ How to Use
 
 1. **Clone or Download:** Get these `.mdc` files into your project or a central location where Cursor can access them.
-2. **Follow the Workflow:** Systematically use the `.mdc` files in Cursor's Agent chat as described in the 5-step workflow above.
+2. **Follow the Workflow:** Systematically use the `.mdc` files in Cursor's Agent chat as described in the 6-step workflow above.
 3. **Adapt and Iterate:**
     * Feel free to modify the prompts within the `.mdc` files to better suit your specific needs or coding style.
     * If the AI struggles with a task, try rephrasing your initial feature description or breaking down tasks even further.
